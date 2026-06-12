@@ -156,10 +156,11 @@ async def download_video(request: VideoRequest, background_tasks: BackgroundTask
     else:
         raise HTTPException(status_code=400, detail="Noto'g'ri sifat tanlandi.")
 
-    ydl_opts = {
+   ydl_opts = {
         'format': ydl_format,
         'outtmpl': f'{DOWNLOAD_DIR}/%(id)s.%(ext)s',
         'noplaylist': True,
+        'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
     }
     
     try:
