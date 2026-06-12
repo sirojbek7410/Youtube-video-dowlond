@@ -17,7 +17,6 @@ def cache_cleaner(file_path: str):
     if os.path.exists(file_path):
         os.remove(file_path)
 
-# ====== MANA SHU YERDA CHIROYLI BOSH SAHIFA QO'SHILDI ======
 @app.get("/", response_class=HTMLResponse)
 async def home_page():
     return """
@@ -108,13 +107,11 @@ async def home_page():
 
                     statusText.innerText = "Fayl tayyor! Brauzeringizga yuklab berilmoqda...";
                     
-                    // Faylni yuklab olish oqimi (Blob)
                     const blob = await response.blob();
                     const downloadUrl = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = downloadUrl;
                     
-                    // Sarlavhadan fayl nomini olish
                     const contentDisposition = response.headers.get('Content-Disposition');
                     let filename = `youtube_media.${qualityInput === 'audio' ? 'mp3' : 'mp4'}`;
                     if (contentDisposition && contentDisposition.includes('filename=')) {
@@ -126,7 +123,6 @@ async def home_page():
                     a.click();
                     a.remove();
                     
-                    // Formani tozalash
                     document.getElementById('url').value = '';
                 } catch (error) {
                     alert('Xatolik yuz berdi: ' + error.message);
@@ -156,7 +152,7 @@ async def download_video(request: VideoRequest, background_tasks: BackgroundTask
     else:
         raise HTTPException(status_code=400, detail="Noto'g'ri sifat tanlandi.")
 
-   ydl_opts = {
+    ydl_opts = {
         'format': ydl_format,
         'outtmpl': f'{DOWNLOAD_DIR}/%(id)s.%(ext)s',
         'noplaylist': True,
